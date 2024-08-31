@@ -37,7 +37,7 @@ class ProfileController extends Controller
     public function show(string $id)
     {
         //
-        return "ini adalah halaman detail id";
+        return "ini adalah halaman";
     }
 
     /**

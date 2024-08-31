@@ -1,7 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UmurController;
+
+use App\Http\Middleware\CheckUmur;
+
+use Illuminate\Support\Facades\Route;
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,3 +35,23 @@ Route::match(['GET', 'POST'], 'jangandibuka', function(){
     return redirect ('/');
 });
 
+
+// middleware
+// Route::get('cek_umur_saya', function(){
+//     return view('umur.cekUmur');
+// });
+
+Route::get('cek_umur_saya', [UmurController::class, 'showForm']);
+Route::post('cek_proses', [UmurController::class, 'cekProses'])->name('proses');
+
+Route::get('home', function(){
+    return "kamu sudah cukup umur";
+})->middleware(CheckUmur::class);
+
+
+// controller
+Route::get('karyawan',[KaryawanController::class, 'index']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
